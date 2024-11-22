@@ -1,0 +1,80 @@
+module Vector1_TB ();
+
+  /////////////////////////////////////////////////////////
+  ///////////////////// Parameters ////////////////////////
+  /////////////////////////////////////////////////////////
+
+  parameter Clock_PERIOD = 10;
+
+  /////////////////////////////////////////////////////////
+  //////////////////// DUT Signals ////////////////////////
+  /////////////////////////////////////////////////////////
+  //* Inputs
+  reg  [15:0] in_TB;
+
+  //*Outputs
+  wire [ 7:0] out_hi_TB;
+  wire [ 7:0] out_lo_TB;
+
+  ////////////////////////////////////////////////////////
+  ////////////////// initial block ///////////////////////
+  ////////////////////////////////////////////////////////
+  initial begin
+
+    //^ generating VCD file "value change dump"
+    $dumpfile("Vector1.vcd");
+    $dumpvars(0, Vector1_TB);
+
+    ////////////////////////////////////////////////////////
+    ///////////////////////Test Cases///////////////////////
+    ////////////////////////////////////////////////////////
+
+    $display("****************** Test case high ******************");
+
+    in_TB = 16'b1010_1100_1111_0001;
+    #Clock_PERIOD
+
+      if (out_hi_TB == in_TB[15 : 8]) begin
+
+        $display("Test case high succeedded");
+
+      end else begin
+
+        $display("Test case high failed");
+
+      end
+
+    $display("****************** Test case low ******************");
+    in_TB = 16'b1010_1100_1111_0001;
+    #Clock_PERIOD
+
+      if (out_lo_TB == in_TB[7 : 0]) begin
+
+        $display("Test case low succeedded");
+
+      end else begin
+
+        $display("Test case low failed");
+
+      end
+
+    #100 $stop;
+
+  end
+
+
+  ////////////////////////////////////////////////////////
+  /////////////////// DUT Instantation ///////////////////
+  ////////////////////////////////////////////////////////
+  Vector1 DUT (
+
+      //* Inputs
+      .in(in_TB),
+
+      //* Outputs
+      .out_hi(out_hi_TB),
+      .out_lo(out_lo_TB)
+
+  );
+
+endmodule
