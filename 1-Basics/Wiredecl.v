@@ -17,6 +17,6 @@ module Wiredecl (
   assign out_n = ~(x | y);
 
 
-out = (a & b) | (c & d) ;
-out_n = ~((a & b) | (c & d));
+//out = (a & b) | (c & d) ;
+//out_n = ~((a & b) | (c & d));
 endmodule
